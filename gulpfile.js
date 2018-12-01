@@ -8,22 +8,31 @@ gulp.task('sass', function() {
 		.pipe(gulp.dest('app/css'))
 });
 
-
 gulp.task('clean', function() {
 	return del.sync('dist');
+	cd();
+});
+
+gulp.task('img', function() {
+	return gulp.src('app/img/**/*')
+	.pipe(gulp.dest('dist/img'))
+});
+
+gulp.task('css', function() {
+	return gulp.src('app/css/*.css')
+	.pipe(gulp.dest('dist/css'))
+});
+
+gulp.task('html', function() {
+	return gulp.src('app/*.html')
+	.pipe(gulp.dest('dist'))
+});
+
+gulp.task('script', function() {
+	return gulp.src('app/js/*.js')
+		.pipe(gulp.dest('dist/js'))
 });
 
 gulp.task('watch', function() {
 	gulp.watch('app/sass/**/*.sass', gulp.series('sass'));
-});
-
-gulp.task('build', gulp.parallel('clean', 'sass'), function() {
-
-	var builCss = gulp.src(
-		'app/css/main.css')
-		.pipe(gulp.dest('dist.css'));
-
-	var buildHtml = gulp.src('app/*html')
-		.pipe(gulp.dest('dist'));
-
 });
